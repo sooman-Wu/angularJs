@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en" ng-app="todoList">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>提醒事项</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/angular.js"></script>
+	<script src="js/angular-animate.js"></script>
+	<script src="js/index.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+	<div id="container">
+		<div class="ref-left">
+			<h1 class="title">
+				<div class="logo"></div>
+				<div class="event">提醒事项</div>
+				<div class="add" ng-click="add()"></div>
+			</h1>
+			<ul class="list">
+				<li class="list-lis">
+					<span class="clock"></span>
+					已计划
+					<div class="under-1"></div>
+					<input type="text">
+			    </li>
+				<li class="list-lis" ng-repeat="v in events" ng-class="{act:v==currentEvent}" ng-click="current($index)">
+					<span class="{{v.theme}}"></span>
+					<div class="under-2"></div>
+					<input type="text" ng-model="v.name">
+				</li>
+			</ul>
+		</div>
+		<div class="ref-right">
+			<div class="search-wrap">
+				<span></span>
+				<input type="text" placeholder="搜索所有提醒"></input>
+				<p class="user">sooman
+                  <strong></strong>
+				</p>
+				<i></i>
+				<p class="help"></p>
+			</div>
+			<div class="new-list">
+				<input type="checkbox" id="choose">
+				<h1 class="new-title {{currentEvent.text}}">
+					<div class="news-left">{{currentEvent.name}}</div>
+					<label for="choose"><div class="news-right">选项</div></label>
+					<div class="line"></div>
+				</h1>
+				<div class="xuanxiang">
+					<div class="xuan-content">
+						<div class="xuan-top"></div>
+						<div class="xuan-bottom">
+							<span class="del" ng-click="del()">删除</span>
+							<span class="cancel">取消</span>
+							<span class="create">完成</span>
+						</div>
+					</div>
+				</div>
+				<ul class="news-table">
+					<li class="table-lis finish">
+						<span></span>
+						<p>已完成<strong>{{currentEvent.xintoumu.length}}</strong>项</p>
+						<div class="line"></div>
+					</li>
+					<li class="table-lis time">
+						<p>2016年6月4日 星期六</p>
+						<div class="line"></div>
+					</li>
+					<li class="table-lis made" ng-repeat="v in currentEvent.xintiaomu" ng-show="v.xintiaomu.status">
+						<span ng-click="v.xintiaomu.status=!v.xintiaomu.status" class="{{currentEvent.wait}}"></span>
+						<input type="text" ng-model="v.xintiaomu.name">
+						<p class="{{currentEvent.text}}">详细信息</p>
+						<div class="line"></div>
+					</li>
+				</ul>
+				<div class="newadd" ng-click="xintiaomu()">
+						<p>新条目</p>
+						<div class="line"></div>
+				</div>
+				<ul class="news-table">
+					<li class="table-lis made" ng-repeat="v in currentEvent.xintiaomu" ng-show="!v.xintiaomu.status">
+						<span ng-click="v.xintiaomu.status=!v.xintiaomu.status" class="{{currentEvent.finish}}"></span>
+						<input type="text" ng-model="v.xintiaomu.name">
+						<p class="{{currentEvent.text}}">详细信息</p>
+						<div class="line"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
